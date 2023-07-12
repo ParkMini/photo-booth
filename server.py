@@ -15,7 +15,7 @@ def main():
 
 @app.route("/uploadImg", methods=["POST"])  # 이미지 업로드
 def uploadImg():
-    lastUploadTime = str(dt.datetime.now()).replace(":", "")
+    lastUploadTime = str(dt.datetime.now()).replace(":", "").replace(" ", "_")
     os.mkdir("./static/" + lastUploadTime)  # 폴더 생성
     lastUploadDir = os.path.join("static", lastUploadTime)
     uploadImg = request.files.getlist("images[]")  # 받은 이미지 목록을 변수에 저장
