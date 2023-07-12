@@ -41,7 +41,7 @@ def upload2Img():
         i += 1
     image2Processing(lastUploadDir)
     createQR(lastUploadDir, lastUploadTime)
-    return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg")
+    return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg", imgDownloadSrc=lastUploadTime + "/result.jpg")
 
 
 def image4Processing(lastUploadDir): # 인생네컷 (4컷)
