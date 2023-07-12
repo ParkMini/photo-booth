@@ -14,7 +14,7 @@ def main():
 
 
 @app.route("/upload4Img", methods=["POST"])  # 이미지 업로드 (4컷)
-def uploadImg():
+def upload4Img():
     lastUploadTime = str(dt.datetime.now()).replace(":", "").replace(" ", "_")
     os.mkdir("./static/" + lastUploadTime)  # 폴더 생성
     lastUploadDir = os.path.join("static", lastUploadTime)
@@ -29,7 +29,7 @@ def uploadImg():
     return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg")
 
 @app.route("/upload2Img", methods=["POST"])  # 이미지 업로드 (2컷)
-def uploadImg():
+def upload2Img():
     lastUploadTime = str(dt.datetime.now()).replace(":", "").replace(" ", "_")
     os.mkdir("./static/" + lastUploadTime)  # 폴더 생성
     lastUploadDir = os.path.join("static", lastUploadTime)
