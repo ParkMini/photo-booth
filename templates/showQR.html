@@ -8,6 +8,7 @@
 <body>
     {% if True %}
     <img src="{{ url_for('static', filename=imgSrc) }}">
+    <a href="{{ url_for('static', filename=imgDownloadSrc) }}" download><p>인생네컷 다운로드(프린트용)</p></a>
     {% endif %}
 
 </body>
