@@ -16,8 +16,8 @@ def main():
 @app.route("/uploadImg", methods=["POST"])  # 이미지 업로드
 def uploadImg():
     lastUploadTime = str(dt.datetime.now()).replace(":", "")
-    os.mkdir("./images/" + lastUploadTime)  # 폴더 생성
-    lastUploadDir = os.path.join("images", lastUploadTime)
+    os.mkdir("./static/" + lastUploadTime)  # 폴더 생성
+    lastUploadDir = os.path.join("static", lastUploadTime)
     uploadImg = request.files.getlist("images[]")  # 받은 이미지 목록을 변수에 저장
     i = 0
     for f in uploadImg:
@@ -25,7 +25,8 @@ def uploadImg():
                secure_filename(str(i) + ".jpg"))  # 순서대로 이미지 저장
         i += 1
     imageProcessing(lastUploadDir)
-    return str(lastUploadTime)
+    createQR(lastUploadDir, lastUploadTime)
+    return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg")
 
 
 def imageProcessing(lastUploadDir):
@@ -47,8 +48,20 @@ def imageProcessing(lastUploadDir):
     newImg.paste(imgs[1], (615, 213))
     newImg.paste(imgs[2], (51, 950))
     newImg.paste(imgs[3], (615, 950))
-    newImg.save(lastUploadDir + "/" + "result.jpg") # 합쳐진 이미지 저장
+    newImg.save(lastUploadDir + "/" + "result.jpg")  # 합쳐진 이미지 저장
+    return True
 
+
+def createQR(lastUploadDir, lastUploadTime): # QR코드 생성
+    qrImg = qrcode.make("http://pcs.pah.kr:712/view?key=" + lastUploadTime)
+    qrImg.save(lastUploadDir + "/" + "QR.jpg")
+    return True
+
+
+@app.route("/view", methods=["GET"]) # 인생네컷 보기
+def view():
+    key = request.args.get("key")
+    return render_template("view.html", imgSrc = key + "/result.jpg")
 
 
 if __name__ == '__main__':

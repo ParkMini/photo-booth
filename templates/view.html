@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>부산컴퓨터과학고등학교 - 컴과네컷</title>
+  </head>
+  <body>
+    <style>
+        a {
+            width: 100%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: '궁서체';
+            color: red;
+        }
+
+        #madeby {
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+    {% if True %}
+        <a href="{{ url_for('static', filename=imgSrc) }}" download><p>인생네컷 다운로드</p></a>
+        <img src="{{ url_for('static', filename=imgSrc) }}" width="100%">
+    {% endif %}
+    <p id="madeby">Made by. 허준</p>
+  </body>
+</html>
