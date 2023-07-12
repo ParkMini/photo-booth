@@ -7,9 +7,14 @@
   </head>
   <body>
     <h1 style="text-align: center">너도 나도 쉽게 인생네컷을 만들어보세요!</h1>
-    <form method="post" enctype="multipart/form-data" action="./uploadImg">
+    <form method="post" enctype="multipart/form-data" action="./upload4Img">
       <input type="file" name="images[]" multiple="" accept="image/*">
-      <button type="submit">Submit</button>
+      <button type="submit">4컷 생성</button>
+    </form>
+
+    <form method="post" enctype="multipart/form-data" action="./upload2Img">
+      <input type="file" name="images[]" multiple="" accept="image/*">
+      <button type="submit">2컷 생성</button>
     </form>
   </body>
 </html>
