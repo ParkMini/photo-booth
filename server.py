@@ -26,7 +26,7 @@ def upload4Img():
         i += 1
     image4Processing(lastUploadDir)
     createQR(lastUploadDir, lastUploadTime)
-    return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg", imgDownloadSrc=lastUploadDir + "/" + "result.jpg")
+    return render_template("showQR.html", imgSrc = lastUploadTime + "/QR.jpg", imgDownloadSrc=lastUploadTime + "/result.jpg")
 
 @app.route("/upload2Img", methods=["POST"])  # 이미지 업로드 (2컷)
 def upload2Img():
