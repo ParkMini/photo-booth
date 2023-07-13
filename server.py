@@ -48,6 +48,7 @@ def image4Processing(lastUploadDir): # 인생네컷 (4컷)
     for i in range(4):
         img = Image.open(lastUploadDir + "/" + str(i) + ".jpg")
         img_resize = img.crop((400, 0, 1750, 1080))
+        img_resize.save(lastUploadDir + "/" + str(i) + "_crop.jpg")
         # 이미지를 530px, 700px으로 크기 수정
         img_resize = img.resize((530, 700), Image.LANCZOS)
         img_resize.save(lastUploadDir + "/" + str(i) + "_resize.jpg")
