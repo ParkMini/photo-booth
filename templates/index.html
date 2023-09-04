@@ -5,65 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EZ 인생네컷</title>
   </head>
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-    }
-
-    body {
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    #selFrame ul li {
-      display: inline-block;
-    }
-
-    #selFrame {
-      width: 100%;
-    }
-  </style>
-
-  <script>
-    function hideMain() {
-      document.querySelector("#main").style.display = "none";
-      document.querySelector("#takePhoto").style.display = "block";
-      document.querySelector("#selType").style.display = "block";
-    }
-
-    function next() {
-      document.querySelector("#selType").style.display = "none";
-      document.querySelector("#selFrame").style.display = "block";
-    }
-  </script>
-
   <body>
-    <div id="main">
-      <h1 style="text-align: center">너도 나도 쉽게 인생네컷을 만들어보세요!</h1>
-      <button onclick="hideMain();">인생네컷 만들기</button>
-    </div>
-    <div id="takePhoto"style="display: none">
-      <form action="http://pcs.pah.kr:712/api/create" method="post">
-        <div id="selType" style="display: none">
-          <h2>2컷으로 만들지 4컷으로 만들지 정해주세요</h2>
-          <label><input type="radio" name="type" id="type" value="4컷" onclick="next()"/>4컷</label>
-          <label><input type="radio" name="type" id="type" value="2컷" />2컷</label>
-        </div>
-        <div id="selFrame" style="display: none">
-          <h2>프레임을 선택해주세요</h2>
-          <ul>
-            <li><label><img src="../background3.png" alt="인생네컷 프레임 이미지" width="128px" /><br><input type="radio" name="frame" id="frame" value="1" />1번 프레임</label></li>
-            <li><label><img src="../background3.png" alt="인생네컷 프레임 이미지" width="128px" /><br><input type="radio" name="frame" id="frame" value="2" />2번 프레임</label></li>
-          </ul>
-        </div>
-      </form>
-    </div>
+    <h1 style="text-align: center">너도 나도 쉽게 인생네컷을 만들어보세요!</h1>
+    <form method="post" enctype="multipart/form-data" action="./upload2Img">
+      <input type="file" name="images[]" multiple="" accept="image/*">
+      <input type="text" name="username" placeholder="이름">
+      <button type="submit">2컷 생성</button>
+    </form>
   </body>
 </html>
