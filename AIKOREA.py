@@ -26,7 +26,7 @@ def upload2Img():
     image2Processing(lastUploadDir, username)
     createQR(lastUploadDir, lastUploadTime)
     
-    return render_template("showQR.html", imgSrc=f"{lastUploadTime}/QR.jpg", imgDownloadSrc=f"{lastUploadTime}/result.jpg")
+    return render_template("showQR.html", imgSrc=f"{lastUploadTime}/QR.jpg", imgDownloadSrc=f"http://pcs.pah.kr:904/view?key={lastUploadTime}")
 
 def image2Processing(lastUploadDir, username):
     imgs = [Image.open(os.path.join(lastUploadDir, f"{i}.png")) for i in range(2)]
@@ -34,7 +34,10 @@ def image2Processing(lastUploadDir, username):
     
     draw = ImageDraw.Draw(bgImg)
     font = ImageFont.truetype('./GmarketSansTTF/GmarketSansTTFMedium.ttf', size=200)
-    draw.text((250, 110), username, font=font, fill="white")
+    if (len(username) >= 4):
+        draw.text((190, 110), username, font=font, fill="white") # 이름 4자
+    else:
+        draw.text((270, 110), username, font=font, fill="white") # 이름 3자
     
     newImg = Image.new("RGB", bgImg.size)
     newImg.paste(bgImg, (0, 0))
@@ -43,7 +46,7 @@ def image2Processing(lastUploadDir, username):
     newImg.save(os.path.join(lastUploadDir, "result.jpg"))
 
 def createQR(lastUploadDir, lastUploadTime):
-    qrImg = qrcode.make(f"http://localhost:712/view?key={lastUploadTime}")
+    qrImg = qrcode.make(f"http://pcs.pah.kr:904/view?key={lastUploadTime}")
     qrImg.save(os.path.join(lastUploadDir, "QR.jpg"))
 
 @app.route("/view", methods=["GET"])
@@ -54,4 +57,4 @@ def view():
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
     app.config['TEMPLATES_AUTO_RELOAD'] = True
-    app.run(host="0.0.0.0", port=712)
+    app.run(host="0.0.0.0", port=904)
