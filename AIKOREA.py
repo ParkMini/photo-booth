@@ -24,9 +24,7 @@ def upload2Img():
         f.save(os.path.join(lastUploadDir, f"{idx}.png"))
     
     image2Processing(lastUploadDir, username)
-    createQR(lastUploadDir, lastUploadTime)
-    
-    return render_template("showQR.html", imgSrc=f"{lastUploadTime}/QR.jpg", imgDownloadSrc=f"http://pcs.pah.kr:904/view?key={lastUploadTime}")
+    return render_template("showQR.html", imgDownloadSrc=f"http://pcs.pah.kr:904/view?key={lastUploadTime}")
 
 def image2Processing(lastUploadDir, username):
     imgs = [Image.open(os.path.join(lastUploadDir, f"{i}.png")) for i in range(2)]
