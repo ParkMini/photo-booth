@@ -1,0 +1,45 @@
+<!-- list.html -->
+<table border="1">
+    <thead>
+        <tr>
+            <th>이름</th>
+            <th>성별</th>
+            <th>나이</th>
+            <th>전화번호</th>
+            <th>첫번째 사진 설명</th>
+            <th>두번째 사진 설명</th>
+            <th>시간</th>
+            <th>상태</th>
+            <th>액션</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in reservations %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
+            <td>{{ row[7] }}</td>
+            <td>
+                {% if row[7] == "0" %}
+                <form action="/update" method="post">
+                    <input type="hidden" name="timestamp" value="{{ row[6] }}">
+                    <input type="hidden" name="status" value="1">
+                    <input type="submit" value="완료">
+                </form>
+                {% else %}
+                <form action="/update" method="post">
+                    <input type="hidden" name="timestamp" value="{{ row[6] }}">
+                    <input type="hidden" name="status" value="0">
+                    <input type="submit" value="취소">
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

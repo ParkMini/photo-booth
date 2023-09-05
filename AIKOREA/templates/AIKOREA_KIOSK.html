@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Processing</title>
+    <style>
+        /* 키오스크 환경에 맞는 스타일링 */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 50px;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        form, div {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        label, textarea, input, select {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        input[type="submit"], button {
+            font-size: 24px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        img {
+            max-width: 100%;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 메인 페이지 폼 -->
+<div id="mainForm">
+    <h2>AI 인생두컷</h2>
+    <form action="./add" method="post">
+        <label for="name">이름:</label>
+        <input type="text" name="name" required>
+
+        <label for="gender">성별:</label>
+        <select name="gender" required>
+            <option value="default" disabled selected>선택해주십시오</option>
+            <option value="male">남자</option>
+            <option value="female">여자</option>
+        </select>
+
+        <label for="age">나이:</label>
+        <input type="number" name="age" required>
+
+        <label for="phone">전화번호:</label>
+        <input type="tel" name="phone" required>
+
+        <label for="desc1">첫번째 사진의 주제(설명):</label>
+        <textarea name="desc1" rows="4" required></textarea>
+
+        <label for="desc2">두번째 사진의 주제(설명):</label>
+        <textarea name="desc2" rows="4" required></textarea>
+
+        <input type="submit" value="신청하기">
+    </form>
+</div>
+
+<!-- 이미지 처리 중 메시지 -->
+<div id="processing" class="hidden">
+    AI으로 이미지 처리를 진행하고 있습니다...
+</div>
+
+<!-- 이미지 처리 완료 화면 -->
+<div id="completed" class="hidden">
+    <img id="resultImage" src="" alt="Processed Image">
+    <button onclick="goToMainPage()">메인 페이지로 돌아가기</button>
+</div>
+
+<script>
+    setInterval(function() {
+        fetch('http://pah.kr')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "workon") {
+                document.getElementById('mainForm').classList.add('hidden');
+                document.getElementById('processing').classList.remove('hidden');
+                document.getElementById('completed').classList.add('hidden');
+            } else if (data.status === "complete") {
+                document.getElementById('mainForm').classList.add('hidden');
+                document.getElementById('processing').classList.add('hidden');
+                document.getElementById('completed').classList.remove('hidden');
+                document.getElementById('resultImage').src = data.image;
+            }
+        });
+    }, 1000);
+
+    function goToMainPage() {
+        document.getElementById('mainForm').classList.remove('hidden');
+        document.getElementById('processing').classList.add('hidden');
+        document.getElementById('completed').classList.add('hidden');
+    }
+</script>
+
+</body>
+</html>
